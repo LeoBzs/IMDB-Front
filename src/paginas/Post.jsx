@@ -2,29 +2,52 @@ import React, {useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { busca } from '../api/api'
 import '../assets/css/post.css'
+import axios from 'axios'
 
 const Post = () => { 
   let history = useHistory()
   const { id } = useParams()
   const[post, setPost] = useState({})
+  const [data, setData] = useState([]); 
 
   useEffect(() => {
     busca(`/movie/${id}`, setPost)
-    .catch(()=>{
-      history.push('/404')
-    })
   }, [id])
 
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(
+        "https://imdb-bonaparte.herokuapp.com/movie/all"
+      )
+      setData(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   return(
-    <main className="container flex flex--centro">
-      <article className="cartao post">
-        <h2 className="cartao__titulo">{post.title}</h2>
-        <h2 className="carta__titulo">{post.category}</h2>
-        <p className="carta__texto">{post.description}</p>
-        <h2 className="cartao__titulo">{post.year}</h2>
-        <h2 className="cartao__titulo">{post.rating}</h2>
-      </article>
-    </main>
+    <span>
+          
+          <h2 className="titulo-pagina">Rating - {id}</h2>
+          <section className="container flex flex--centro">
+          { 
+           data
+           .filter((post) => (post.title === id))
+           .map((post) => (                 
+               <article key={post.id} className="cartao">
+                  <h1 className="cartao-post__titulo">
+                    {post.title} <br></br> <br></br> <h2>Rating: {post.rating}</h2>
+                  </h1>
+                  <p className="cartao-post__meta">{post.description}</p>
+               </article> 
+           ))
+          }
+        </section>
+        </span>
   )
 }
 

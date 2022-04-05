@@ -24,10 +24,10 @@ function App() {
         <Route path='/lista'>
           <ListaFilmes />
         </Route>
-        <Route path='/categoria/:id'>
+        <Route path='/movie/category/:id'>
           <Categoria />
         </Route>
-        <Route path='/posts/:id'>
+        <Route path='/movie/:id'>
           <Post />
         </Route>
         <Route>
