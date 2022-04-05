@@ -10,7 +10,7 @@ const ListaFilmes = () => {
   const fetchData = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8081/movie/all"
+        "https://imdb-bonaparte.herokuapp.com/movie/all"
       );
       setData(res?.data);
     } catch (error) {
