@@ -11,6 +11,7 @@ const Post = () => {
 
   useEffect(() => {
     busca(`/movie/${id}`, setPost)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   const fetchData = async () => {
