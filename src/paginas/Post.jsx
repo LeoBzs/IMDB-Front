@@ -1,13 +1,12 @@
 import React, {useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { busca } from '../api/api'
 import '../assets/css/post.css'
 import axios from 'axios'
 
 const Post = () => { 
-  let history = useHistory()
   const { id } = useParams()
-  const[post, setPost] = useState({})
+  const[setPost] = useState({})
   const [data, setData] = useState([]); 
 
   useEffect(() => {
